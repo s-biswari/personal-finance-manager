@@ -1,5 +1,6 @@
 package com.self.finance.service;
 
+import com.self.finance.dto.SpendingReportDTO;
 import com.self.finance.dto.TransactionRequestDTO;
 import com.self.finance.dto.TransactionResponseDTO;
 import com.self.finance.model.Category;
@@ -9,6 +10,7 @@ import com.self.finance.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,5 +75,18 @@ public class TransactionService {
         dto.setDate(transaction.getDate());
         dto.setCategoryName(transaction.getCategory().getName());
         return dto;
+    }
+
+    public List<SpendingReportDTO> getSpendingByCategory(int month, int year) {
+        List<Object[]> result = transactionRepository.findSpendingByCategoryForExport(month, year);
+
+        // Convert the result from Object[] to SpendingReportDTO
+        return result.stream()
+                .map(row -> new SpendingReportDTO(
+                        (Long) row[0],          // categoryId
+                        (String) row[1],        // categoryName
+                        ((BigDecimal) row[2]).doubleValue()        // totalAmount
+                ))
+                .collect(Collectors.toList());
     }
 }

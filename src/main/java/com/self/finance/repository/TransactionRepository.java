@@ -18,5 +18,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             "GROUP BY t.category_id", nativeQuery = true)
     List<Object[]> findSpendingByCategory(@Param("month") int month, @Param("year") int year);
 
+    @Query("SELECT t.category.id, t.category.name, SUM(t.amount) " +
+            "FROM Transaction t " +
+            "WHERE EXTRACT(MONTH FROM t.date) = :month AND EXTRACT(YEAR FROM t.date) = :year " +
+            "GROUP BY t.category.id, t.category.name")
+    List<Object[]> findSpendingByCategoryForExport(@Param("month") int month, @Param("year") int year);
+
 
 }
