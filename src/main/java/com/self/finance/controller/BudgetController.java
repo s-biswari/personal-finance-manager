@@ -15,8 +15,12 @@ import java.util.List;
 @Tag(name = "Budget Management", description = "APIs to manage monthly budgets per category")
 public class BudgetController {
 
+    private final BudgetService budgetService;
+
     @Autowired
-    private BudgetService budgetService;
+    public BudgetController(BudgetService budgetService) {
+        this.budgetService = budgetService;
+    }
 
     @PostMapping
     public Budget setBudget(@RequestParam Long categoryId,
