@@ -3,7 +3,6 @@ package com.self.finance.controller;
 import com.self.finance.dto.SpendingReportDTO;
 import com.self.finance.service.ReportService;
 import com.self.finance.service.TransactionService; // This service is responsible for fetching the spending data.
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +14,13 @@ import java.util.List;
 @RestController
 public class ReportController {
 
-    @Autowired
-    private ReportService reportService;
+    private final ReportService reportService;
+    private final TransactionService transactionService; // Service to fetch data from DB
 
-    @Autowired
-    private TransactionService transactionService; // Service to fetch data from DB
+    public ReportController(ReportService reportService, TransactionService transactionService) {
+        this.reportService = reportService;
+        this.transactionService = transactionService;
+    }
 
     // Endpoint to download the spending report
     @GetMapping("/download-report")

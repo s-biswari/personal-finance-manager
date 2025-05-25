@@ -4,7 +4,6 @@ import com.self.finance.config.TestConfig;
 import com.self.finance.model.Budget;
 import com.self.finance.dto.BudgetReportDTO;
 import com.self.finance.service.BudgetService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +53,7 @@ class BudgetControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testDelete() throws Exception {
+        Mockito.doNothing().when(budgetService).deleteBudget(1L);
         mockMvc.perform(delete("/api/budgets/1"))
                 .andExpect(status().isOk());
     }

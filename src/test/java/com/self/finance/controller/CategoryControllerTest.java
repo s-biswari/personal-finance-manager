@@ -75,6 +75,7 @@ class CategoryControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testDelete() throws Exception {
+        Mockito.doNothing().when(categoryService).deleteCategory(1L);
         mockMvc.perform(delete("/api/categories/1"))
                 .andExpect(status().isOk());
     }

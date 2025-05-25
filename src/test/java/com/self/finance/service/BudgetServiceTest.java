@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -37,7 +36,6 @@ class BudgetServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         category = Category.builder().id(1L).name("Groceries").build();
         budget = Budget.builder().id(1L).category(category).month(5).year(2025).amount(BigDecimal.valueOf(500)).build();
     }

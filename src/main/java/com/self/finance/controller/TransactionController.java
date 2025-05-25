@@ -14,8 +14,11 @@ import java.util.List;
 @Tag(name = "Transaction Management", description = "CRUD APIs for financial transactions")
 public class TransactionController {
 
-    @Autowired
-    private TransactionService transactionService;
+    private final TransactionService transactionService;
+
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @GetMapping
     public List<TransactionResponseDTO> getAll() {

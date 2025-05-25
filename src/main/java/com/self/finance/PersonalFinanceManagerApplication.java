@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class PersonalFinanceManagerApplication {
 
     public static void main(String[] args) {
-        System.out.println("Starting Personal Finance Manager Application...");
         SpringApplication.run(PersonalFinanceManagerApplication.class, args);
     }
 

@@ -7,7 +7,6 @@ import com.self.finance.model.Category;
 import com.self.finance.model.Transaction;
 import com.self.finance.repository.CategoryRepository;
 import com.self.finance.repository.TransactionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,11 +16,13 @@ import java.util.stream.Collectors;
 @Service
 public class TransactionService {
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
+    private final CategoryRepository categoryRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    public TransactionService(TransactionRepository transactionRepository, CategoryRepository categoryRepository) {
+        this.transactionRepository = transactionRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     public List<TransactionResponseDTO> getAllTransactions() {
         return transactionRepository.findAll().stream()

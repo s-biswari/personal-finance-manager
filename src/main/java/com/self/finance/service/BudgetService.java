@@ -19,14 +19,18 @@ import java.util.stream.Collectors;
 @Service
 public class BudgetService {
 
-    @Autowired
-    private BudgetRepository budgetRepository;
+    private final BudgetRepository budgetRepository;
+    private final CategoryRepository categoryRepository;
+    private final TransactionRepository transactionRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private TransactionRepository transactionRepository;
+    public BudgetService(BudgetRepository budgetRepository,
+                        CategoryRepository categoryRepository,
+                        TransactionRepository transactionRepository) {
+        this.budgetRepository = budgetRepository;
+        this.categoryRepository = categoryRepository;
+        this.transactionRepository = transactionRepository;
+    }
 
     public Budget setBudget(Long categoryId, int month, int year, BigDecimal amount) {
         Category category = categoryRepository.findById(categoryId)
