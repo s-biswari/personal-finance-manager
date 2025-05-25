@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,8 +17,11 @@ import java.util.Collections;
 @Component
 public class JwtTokenProvider {
 
-    private final String JWT_SECRET = "your_secret_key"; // Replace with your secret key
-    private final long JWT_EXPIRATION = 604800000L; // 7 days in milliseconds
+    @Value("${jwt.secret:your_jwt_secret}")
+    private String JWT_SECRET;
+
+    @Value("${jwt.expiration:3600000}")
+    private long JWT_EXPIRATION;
 
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
