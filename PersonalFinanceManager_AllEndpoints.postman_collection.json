@@ -1,0 +1,117 @@
+{
+  "info": {
+    "_postman_id": "personal-finance-manager-all-endpoints",
+    "name": "Personal Finance Manager API (All Endpoints)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"newuser@example.com\",\n  \"password\": \"password\",\n  \"email\": \"newuser@example.com\",\n  \"role\": \"ROLE_USER\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/register",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "auth", "register"]
+        }
+      }
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"user@example.com\",\n  \"password\": \"password\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "Budgets - Get All",
+      "request": { "method": "GET", "url": { "raw": "http://localhost:8080/api/budgets", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "budgets"] } }
+    },
+    {
+      "name": "Budgets - Set Budget",
+      "request": { "method": "POST", "url": { "raw": "http://localhost:8080/api/budgets?categoryId=1&month=5&year=2025&amount=1000", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "budgets"], "query": [ {"key": "categoryId", "value": "1"}, {"key": "month", "value": "5"}, {"key": "year", "value": "2025"}, {"key": "amount", "value": "1000"} ] } }
+    },
+    {
+      "name": "Budgets - Delete",
+      "request": { "method": "DELETE", "url": { "raw": "http://localhost:8080/api/budgets/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "budgets", "1"] } }
+    },
+    {
+      "name": "Budgets - Monthly Report",
+      "request": { "method": "GET", "url": { "raw": "http://localhost:8080/api/budgets/report?month=5&year=2025", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "budgets", "report"], "query": [ {"key": "month", "value": "5"}, {"key": "year", "value": "2025"} ] } }
+    },
+    {
+      "name": "Categories - Get All",
+      "request": { "method": "GET", "url": { "raw": "http://localhost:8080/api/categories", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "categories"] } }
+    },
+    {
+      "name": "Categories - Get By Id",
+      "request": { "method": "GET", "url": { "raw": "http://localhost:8080/api/categories/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "categories", "1"] } }
+    },
+    {
+      "name": "Categories - Create",
+      "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\"name\":\"TestCat\"}" }, "url": { "raw": "http://localhost:8080/api/categories", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "categories"] } }
+    },
+    {
+      "name": "Categories - Update",
+      "request": { "method": "PUT", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\"id\":1,\"name\":\"UpdatedCat\"}" }, "url": { "raw": "http://localhost:8080/api/categories/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "categories", "1"] } }
+    },
+    {
+      "name": "Categories - Delete",
+      "request": { "method": "DELETE", "url": { "raw": "http://localhost:8080/api/categories/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "categories", "1"] } }
+    },
+    {
+      "name": "Transactions - Get All",
+      "request": { "method": "GET", "url": { "raw": "http://localhost:8080/api/transactions", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "transactions"] } }
+    },
+    {
+      "name": "Transactions - Get By Id",
+      "request": { "method": "GET", "url": { "raw": "http://localhost:8080/api/transactions/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "transactions", "1"] } }
+    },
+    {
+      "name": "Transactions - Create",
+      "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\"description\":\"Test Transaction\",\"amount\":100,\"date\":\"2025-05-25\",\"categoryId\":1}" }, "url": { "raw": "http://localhost:8080/api/transactions", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "transactions"] } }
+    },
+    {
+      "name": "Transactions - Update",
+      "request": { "method": "PUT", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\"description\":\"Updated Transaction\",\"amount\":200,\"date\":\"2025-05-25\",\"categoryId\":1}" }, "url": { "raw": "http://localhost:8080/api/transactions/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "transactions", "1"] } }
+    },
+    {
+      "name": "Transactions - Delete",
+      "request": { "method": "DELETE", "url": { "raw": "http://localhost:8080/api/transactions/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "transactions", "1"] } }
+    },
+    {
+      "name": "Transactions - Spending By Category",
+      "request": { "method": "GET", "url": { "raw": "http://localhost:8080/api/transactions/spending?month=5&year=2025", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "transactions", "spending"], "query": [ {"key": "month", "value": "5"}, {"key": "year", "value": "2025"} ] } }
+    },
+    {
+      "name": "Report - Download (PDF/Excel)",
+      "request": { "method": "GET", "url": { "raw": "http://localhost:8080/download-report?month=5&year=2025&format=pdf", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["download-report"], "query": [ {"key": "month", "value": "5"}, {"key": "year", "value": "2025"}, {"key": "format", "value": "pdf"} ] } }
+    },
+    {
+      "name": "Health Check",
+      "request": { "method": "GET", "url": { "raw": "http://localhost:8080/api/health", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api", "health"] } }
+    }
+  ]
+}

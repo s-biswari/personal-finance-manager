@@ -3,6 +3,7 @@ package com.self.finance.controller;
 import com.self.finance.dto.TransactionRequestDTO;
 import com.self.finance.dto.TransactionResponseDTO;
 import com.self.finance.service.TransactionService;
+import com.self.finance.dto.SpendingReportDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,5 +43,10 @@ public class TransactionController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         transactionService.deleteTransaction(id);
+    }
+
+    @GetMapping("/spending")
+    public List<SpendingReportDTO> getSpendingByCategory(@RequestParam int month, @RequestParam int year) {
+        return transactionService.getSpendingByCategory(month, year);
     }
 }
