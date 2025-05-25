@@ -1,5 +1,6 @@
 package com.self.finance.controller;
 
+import com.self.finance.config.TestConfig;
 import com.self.finance.model.Budget;
 import com.self.finance.dto.BudgetReportDTO;
 import com.self.finance.service.BudgetService;
@@ -9,6 +10,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -20,6 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(BudgetController.class)
+@Import(TestConfig.class)
 class BudgetControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -28,6 +32,7 @@ class BudgetControllerTest {
     private BudgetService budgetService;
 
     @Test
+    @WithMockUser
     void testGetAll() throws Exception {
         Budget budget = Budget.builder().id(1L).amount(BigDecimal.valueOf(1000)).build();
         Mockito.when(budgetService.getAllBudgets()).thenReturn(Collections.singletonList(budget));
@@ -37,6 +42,7 @@ class BudgetControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testSetBudget() throws Exception {
         Budget budget = Budget.builder().id(1L).amount(BigDecimal.valueOf(1000)).build();
         Mockito.when(budgetService.setBudget(anyLong(), any(Integer.class), any(Integer.class), any(BigDecimal.class))).thenReturn(budget);
@@ -46,12 +52,14 @@ class BudgetControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testDelete() throws Exception {
         mockMvc.perform(delete("/api/budgets/1"))
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser
     void testGetMonthlyReport() throws Exception {
         BudgetReportDTO dto = BudgetReportDTO.builder().categoryName("Groceries").budgetAmount(BigDecimal.valueOf(1000)).actualSpent(BigDecimal.valueOf(900)).month(5).year(2025).overspent(false).build();
         Mockito.when(budgetService.generateMonthlyReport(5, 2025)).thenReturn(Collections.singletonList(dto));

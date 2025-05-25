@@ -1,5 +1,6 @@
 package com.self.finance.controller;
 
+import com.self.finance.config.TestConfig;
 import com.self.finance.dto.TransactionRequestDTO;
 import com.self.finance.dto.TransactionResponseDTO;
 import com.self.finance.service.TransactionService;
@@ -8,7 +9,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -20,6 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TransactionController.class)
+@Import(TestConfig.class)
 class TransactionControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -28,6 +32,7 @@ class TransactionControllerTest {
     private TransactionService transactionService;
 
     @Test
+    @WithMockUser
     void testGetAll() throws Exception {
         TransactionResponseDTO dto = new TransactionResponseDTO();
         dto.setId(1L);
@@ -39,6 +44,7 @@ class TransactionControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testGetById() throws Exception {
         TransactionResponseDTO dto = new TransactionResponseDTO();
         dto.setId(1L);
@@ -50,6 +56,7 @@ class TransactionControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testCreate() throws Exception {
         TransactionRequestDTO req = new TransactionRequestDTO();
         req.setDescription("Test");
@@ -68,6 +75,7 @@ class TransactionControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testUpdate() throws Exception {
         TransactionResponseDTO resp = new TransactionResponseDTO();
         resp.setId(1L);
@@ -81,6 +89,7 @@ class TransactionControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testDelete() throws Exception {
         mockMvc.perform(delete("/api/transactions/1"))
                 .andExpect(status().isOk());

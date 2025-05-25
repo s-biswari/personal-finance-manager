@@ -1,5 +1,6 @@
 package com.self.finance.controller;
 
+import com.self.finance.config.TestConfig;
 import com.self.finance.model.Category;
 import com.self.finance.service.CategoryService;
 import org.junit.jupiter.api.Test;
@@ -7,7 +8,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
@@ -17,6 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CategoryController.class)
+@Import(TestConfig.class)
 class CategoryControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -25,6 +29,7 @@ class CategoryControllerTest {
     private CategoryService categoryService;
 
     @Test
+    @WithMockUser
     void testGetAll() throws Exception {
         Category cat = Category.builder().id(1L).name("TestCat").build();
         Mockito.when(categoryService.getAllCategories()).thenReturn(Collections.singletonList(cat));
@@ -34,6 +39,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testGetById() throws Exception {
         Category cat = Category.builder().id(1L).name("TestCat").build();
         Mockito.when(categoryService.getCategoryById(1L)).thenReturn(cat);
@@ -43,6 +49,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testCreate() throws Exception {
         Category cat = Category.builder().id(1L).name("TestCat").build();
         Mockito.when(categoryService.createCategory(any())).thenReturn(cat);
@@ -54,6 +61,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testUpdate() throws Exception {
         Category cat = Category.builder().id(1L).name("UpdatedCat").build();
         Mockito.when(categoryService.updateCategory(any(Long.class), any(Category.class))).thenReturn(cat);
@@ -65,6 +73,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testDelete() throws Exception {
         mockMvc.perform(delete("/api/categories/1"))
                 .andExpect(status().isOk());
