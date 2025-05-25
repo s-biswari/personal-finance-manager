@@ -18,10 +18,10 @@ import java.util.Collections;
 public class JwtTokenProvider {
 
     @Value("${jwt.secret:your_jwt_secret}")
-    private String JWT_SECRET;
+    private String jwtSecret;
 
     @Value("${jwt.expiration:3600000}")
-    private long JWT_EXPIRATION;
+    private long jwtExpiration;
 
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
@@ -29,14 +29,14 @@ public class JwtTokenProvider {
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION))
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             return false;
@@ -44,7 +44,7 @@ public class JwtTokenProvider {
     }
 
     public String getUsernameFromToken(String token) {
-        Claims claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
+        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
         return claims.getSubject();
     }
 

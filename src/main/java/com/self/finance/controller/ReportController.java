@@ -24,8 +24,7 @@ public class ReportController {
 
     // Endpoint to download the spending report
     @GetMapping("/download-report")
-    public void downloadReport(@RequestParam int month, @RequestParam int year,
-                               @RequestParam String format, HttpServletResponse response) throws IOException {
+    public void downloadReport(@RequestParam int month, @RequestParam int year, @RequestParam String format, HttpServletResponse response) throws IOException {
         List<SpendingReportDTO> reportData = transactionService.getSpendingByCategory(month, year);
 
         if ("pdf".equalsIgnoreCase(format)) {
