@@ -155,7 +155,7 @@
                             <executable>npm</executable>
                             <arguments>
                                 <argument>run</argument>
-                                <argument>build</argument>
+                                <argument>${ng.build.script}</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -201,6 +201,26 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <ng.build.script>build:prod</ng.build.script>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <ng.build.script>build:dev</ng.build.script>
+            </properties>
+        </profile>
+        <profile>
+            <id>staging</id>
+            <properties>
+                <ng.build.script>build:staging</ng.build.script>
+            </properties>
+        </profile>
+    </profiles>
 
 
 </project>

@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String extractToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+        if (bearerToken != null) {
             return bearerToken.substring(7);
         }
         return null;
@@ -50,6 +50,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getServletPath();
-        return path.equals("/api/auth/login") || path.equals("/api/auth/register");
+        // Skip JWT filter for Angular frontend routes and static resources
+        return path.equals("/api/auth/login") ||
+               path.equals("/api/auth/register") ||
+               path.equals("/login") ||
+               path.equals("/register") ||
+               path.equals("/") ||
+               path.equals("/index.html") ||
+               path.startsWith("/assets/") ||
+               path.startsWith("/static/") ||
+               path.equals("/favicon.ico") ||
+               path.endsWith(".js") ||
+               path.endsWith(".css") ||
+               path.endsWith(".map");
     }
 }

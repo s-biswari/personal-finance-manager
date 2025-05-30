@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartType, ChartConfiguration } from 'chart.js';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-budget-report',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, NgChartsModule],
+  imports: [CommonModule, NgChartsModule],
   templateUrl: './budget-report.component.html'
 })
 export class BudgetReportComponent implements OnInit {
@@ -28,7 +29,7 @@ export class BudgetReportComponent implements OnInit {
   }
 
   fetchReport(month: number, year: number): void {
-    this.http.get<any[]>(`http://localhost:8080/api/budgets/report?month=${month}&year=${year}`)
+    this.http.get<any[]>(`${environment.apiBaseUrl}api/budgets/report?month=${month}&year=${year}`)
       .subscribe(data => {
         const labels = data.map(d => d.categoryName);
         const budget = data.map(d => d.budgetAmount);

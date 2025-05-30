@@ -37,7 +37,19 @@ public class SecurityConfig {
             .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(
+                    "/api/auth/**",
+                    "/",
+                    "/index.html",
+                    "/favicon.ico",
+                    "/static/**",
+                    "/assets/**",
+                    "/login",
+                    "/register",
+                    "/*.js",
+                    "/*.css",
+                    "/*.map"
+                ).permitAll()
                 .anyRequest().authenticated()
             );
         http.userDetailsService(customUserDetailsService);

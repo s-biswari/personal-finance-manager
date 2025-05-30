@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -26,18 +28,22 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@Valid @RequestBody User user) {
+    public ResponseEntity<Map<String, String>> authenticateUser(@Valid @RequestBody User user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
         );
 
         String token = jwtTokenProvider.generateToken(authentication.getName());
-        return ResponseEntity.ok().body("Bearer " + token);
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody User user) {
+    public ResponseEntity<Map<String, String>> registerUser(@Valid @RequestBody User user) {
         userService.registerUser(user);
-        return ResponseEntity.ok().body("User registered successfully");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User registered successfully");
+        return ResponseEntity.ok(response);
     }
 }
