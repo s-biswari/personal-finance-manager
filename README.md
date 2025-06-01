@@ -1,32 +1,40 @@
 # Personal Finance Manager
 
 ## Overview
-The Personal Finance Manager is a Spring Boot application designed to help users manage their personal finances. It provides features for user authentication, secure access to financial data, and the ability to track expenses and income.
+The Personal Finance Manager is a full-stack application (Spring Boot backend + Angular frontend) designed to help users manage their personal finances. It provides secure authentication, a modern user interface, and features for tracking expenses, budgets, and categories.
 
 ## Features
-- User registration and login
-- JWT-based authentication
+- User registration and login (JWT-based authentication)
 - Secure access to financial data
-- User-friendly interface for managing finances
+- Modern Angular UI with light/dark theme support
 - Budget, Category, and Transaction management
-- Spending and budget reports
+- Dedicated screens for:
+  - Budget Report (visualize budget vs. spending)
+  - Manage Budgets (CRUD for budgets)
+  - Category Management (CRUD for categories, **no delete in UI**)
+  - Transaction List and Form
+- Spending and budget reports (PDF/Excel download)
+- Responsive and user-friendly design
 
 ## Technologies Used
-- Spring Boot
+- Spring Boot (Java)
 - Spring Security
 - JWT (JSON Web Tokens)
 - Spring Data JPA
 - PostgreSQL (or H2 for testing)
 - Maven
+- Angular (frontend)
+- ng2-charts (for charts)
 - JaCoCo (for test coverage)
 
 ## Setup Instructions
 
 ### Prerequisites
 - Java 11 or higher
+- Node.js and npm (for Angular frontend)
 - Maven
 
-### Installation
+### Backend Installation
 1. Clone the repository:
    ```bash
    git clone <repository-url>
@@ -35,21 +43,35 @@ The Personal Finance Manager is a Spring Boot application designed to help users
    ```bash
    cd personal-finance-manager
    ```
-3. Build the project using Maven:
+3. Build the backend using Maven:
    ```bash
    mvn clean install
    ```
 
-### Configuration
-1. Open `src/main/resources/application.properties` and configure your database settings and JWT secret key.
+#### Backend Configuration
+- Open `src/main/resources/application.properties` and configure your database settings and JWT secret key.
 
-### Running the Application
-1. Run the application:
+#### Running the Backend
+```bash
+mvn spring-boot:run
+```
+- Access the backend at `http://localhost:8080`.
+- API documentation is available at `/swagger-ui.html`.
+
+### Frontend Installation
+1. Navigate to the frontend directory:
    ```bash
-   mvn spring-boot:run
+   cd frontend
    ```
-2. Access the application at `http://localhost:8080`.
-3. API documentation is available at `/swagger-ui.html`.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the Angular app:
+   ```bash
+   npm start
+   ```
+4. Access the frontend at `http://localhost:4200`.
 
 ## API Endpoints
 
@@ -101,7 +123,7 @@ The Personal Finance Manager is a Spring Boot application designed to help users
       "name": "UpdatedCat"
     }
     ```
-- **Delete:** `DELETE /api/categories/{id}`
+- **Delete:** `DELETE /api/categories/{id}` (not available from UI)
 
 ### Transactions
 - **Get All:** `GET /api/transactions`
@@ -144,6 +166,7 @@ The Personal Finance Manager is a Spring Boot application designed to help users
 - Log in by sending a POST request to `/api/auth/login` to receive a JWT token.
 - Use the token to access protected endpoints by including it in the Authorization header as `Bearer <token>`.
 - Use the provided Postman collection (`PersonalFinanceManager_AllEndpoints.postman_collection.json`) to test all endpoints.
+- Use the Angular frontend for a modern, user-friendly experience.
 
 ## Test Coverage
 To check test coverage using Maven and JaCoCo:
