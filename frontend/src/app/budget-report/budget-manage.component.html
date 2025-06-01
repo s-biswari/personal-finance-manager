@@ -1,49 +1,6 @@
 <div class="budget-report-container">
   <button class="back-btn" type="button" (click)="goBack()">← Back</button>
   <div class="report-card">
-    <h2>Budget vs Spending Report</h2>
-    <form class="filter-form" (ngSubmit)="onFilter()">
-      <div class="form-group">
-        <label class="floating-label">Month
-          <input type="number" [(ngModel)]="month" name="month" min="1" max="12" required placeholder=" " />
-          <span class="input-icon">📅</span>
-        </label>
-      </div>
-      <div class="form-group">
-        <label class="floating-label">Year
-          <input type="number" [(ngModel)]="year" name="year" min="2000" max="2100" required placeholder=" " />
-          <span class="input-icon">📆</span>
-        </label>
-      </div>
-      <button class="filter-btn" type="submit">Filter</button>
-    </form>
-    <div class="chart-area">
-      <canvas baseChart [data]="chartData" [type]="chartType"></canvas>
-    </div>
-  </div>
-
-  <!-- Budget Summary Card -->
-  <div class="summary-card">
-    <div class="summary-item">
-      <span class="summary-label">Total Budgeted</span>
-      <span class="summary-value">{{ getTotalBudgeted() | number:'1.2-2' }}</span>
-    </div>
-    <div class="summary-item">
-      <span class="summary-label">Total Spent</span>
-      <span class="summary-value">{{ getTotalSpent() | number:'1.2-2' }}</span>
-    </div>
-    <div class="summary-item">
-      <span class="summary-label">Remaining</span>
-      <span class="summary-value" [ngClass]="{'negative': getTotalRemaining() < 0}">{{ getTotalRemaining() | number:'1.2-2' }}</span>
-    </div>
-    <div class="summary-item">
-      <span class="summary-label">% Used</span>
-      <span class="summary-value">{{ getPercentUsed() | number:'1.0-0' }}%</span>
-    </div>
-  </div>
-
-  <!-- Budget CRUD Section -->
-  <div class="report-card" style="margin-top:2rem;">
     <h2>Manage Budgets</h2>
     <form (ngSubmit)="submitBudget()" class="filter-form" autocomplete="off">
       <div class="form-group">
@@ -87,8 +44,6 @@
           <th>Month</th>
           <th>Year</th>
           <th>Amount</th>
-          <th>Spent</th>
-          <th>Progress</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -98,15 +53,6 @@
           <td>{{ b.month }}</td>
           <td>{{ b.year }}</td>
           <td>{{ b.amount | number:'1.2-2' }}</td>
-          <td>{{ getSpentForBudget(b) | number:'1.2-2' }}</td>
-          <td>
-            <div class="progress-bar-container" [title]="getProgressTooltip(b)">
-              <div class="progress-bar" [ngClass]="{'over': isOverspent(b)}" [style.width]="getProgressPercent(b) + '%'">
-                <span *ngIf="isOverspent(b)" class="over-icon" title="Overspent">⚠️</span>
-              </div>
-            </div>
-            <span class="progress-label">{{ getProgressPercent(b) | number:'1.0-0' }}%</span>
-          </td>
           <td>
             <button class="filter-btn" style="padding:0.2rem 0.7rem;font-size:0.95rem;" (click)="editBudget(b)" title="Edit"><span>✏️</span></button>
             <button class="filter-btn danger" style="padding:0.2rem 0.7rem;font-size:0.95rem;" (click)="deleteBudget(b.id)" title="Delete"><span>🗑️</span></button>

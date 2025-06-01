@@ -1,0 +1,34 @@
+<div class="report-generation-form-container">
+  <div class="form-card">
+    <button class="back-btn" type="button" (click)="goBack()">← Back</button>
+    <h2>Generate Report</h2>
+    <form (ngSubmit)="generateReport()">
+      <div class="form-group">
+        <label class="floating-label">Month
+          <input type="number" id="month" name="month" [(ngModel)]="month" required min="1" max="12" placeholder=" " />
+          <span class="input-icon">📅</span>
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="floating-label">Year
+          <input type="number" id="year" name="year" [(ngModel)]="year" required min="2000" max="2100" placeholder=" " />
+          <span class="input-icon">📆</span>
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="floating-label">Format
+          <select id="format" name="format" [(ngModel)]="format" required>
+            <option value="pdf">PDF</option>
+            <option value="excel">Excel</option>
+          </select>
+          <span class="input-icon">📄</span>
+        </label>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="submit-btn" [disabled]="loading">Generate Report</button>
+      </div>
+      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+      <div *ngIf="loading" class="loading">Generating...</div>
+    </form>
+  </div>
+</div>

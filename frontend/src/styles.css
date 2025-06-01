@@ -1,1 +1,187 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Theme Toggle Styles and Global Theme Classes */
+.theme-toggle-container {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 1000;
+}
+.theme-switch {
+  display: flex;
+  align-items: center;
+  background: rgba(60,60,60,0.12);
+  border-radius: 2em;
+  padding: 0.3em 1em 0.3em 0.5em;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+}
+.theme-switch input[type="checkbox"] {
+  display: none;
+}
+.slider {
+  width: 2.2em;
+  height: 1.2em;
+  background: #bfc1c8;
+  border-radius: 1em;
+  position: relative;
+  margin-right: 0.7em;
+  transition: background 0.2s;
+}
+.theme-switch input[type="checkbox"]:checked + .slider {
+  background: #232526;
+}
+.slider:before {
+  content: '';
+  position: absolute;
+  left: 0.2em;
+  top: 0.2em;
+  width: 0.8em;
+  height: 0.8em;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.theme-switch input[type="checkbox"]:checked + .slider:before {
+  transform: translateX(1em);
+}
+.theme-label {
+  font-size: 1.1em;
+  color: #bfc1c8;
+  margin-left: 0.3em;
+}
+
+/* Light theme overrides */
+.light-theme body,
+.light-theme .login-container,
+.light-theme .register-container,
+.light-theme .transaction-container,
+.light-theme .transaction-form-container {
+  background: linear-gradient(120deg, #f8fafc 60%, #e0e7ff 100%) !important;
+  color: #232526 !important;
+}
+.light-theme .login-card,
+.light-theme .register-card,
+.light-theme .transaction-card,
+.light-theme .transaction-form-container {
+  background: #fff !important;
+  color: #232526 !important;
+}
+.light-theme h2,
+.light-theme .form-group label,
+.light-theme .form-group,
+.light-theme .transaction-header h2 {
+  color: #232526 !important;
+}
+.light-theme .floating-label input,
+.light-theme .floating-label select {
+  background: #f8fafc !important;
+  color: #232526 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+.light-theme .floating-label input:focus,
+.light-theme .floating-label select:focus {
+  background: #fff !important;
+  border: 1.5px solid #4f8cff !important;
+}
+.light-theme .input-icon {
+  color: #a0aec0 !important;
+}
+.light-theme .add-btn,
+.light-theme .register-btn,
+.light-theme .login-btn,
+.light-theme .submit-btn {
+  background: linear-gradient(90deg, #4f8cff 0%, #38b2ac 100%) !important;
+  color: #fff !important;
+}
+.light-theme .category-chip {
+  background: #e0e7ff !important;
+  color: #3730a3 !important;
+}
+.light-theme .edit-btn {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+}
+.light-theme .edit-btn:hover {
+  background: #bae6fd !important;
+  color: #0c4a6e !important;
+}
+.light-theme .delete-btn {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+}
+.light-theme .delete-btn:hover {
+  background: #fecaca !important;
+  color: #7f1d1d !important;
+}
+.light-theme .no-txns {
+  color: #a0aec0 !important;
+}
+
+/* Add these at the end of your styles.css */
+
+.light-theme .landing-container,
+.light-theme .report-generation-container {
+  background: #f8fafc !important;
+  color: #232526 !important;
+}
+
+.dark-theme .landing-container,
+.dark-theme .report-generation-container {
+  background: #232526 !important;
+  color: #f8fafc !important;
+}
+
+/* Light theme for report generation */
+.light-theme .report-generation-container {
+  background: #f8fafc !important;
+  color: #232526 !important;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 12px 0 rgba(60,60,60,0.08);
+  padding: 2rem 2.5rem;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+/* Dark theme for report generation */
+body.dark-theme .report-generation-container {
+  background: #232526 !important;
+  color: #f5f6fa !important;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.18);
+  padding: 2rem 2.5rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  border: 1px solid #393e46 !important;
+}
+
+/* Optional: Style report generation form/buttons */
+.report-generation-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.report-generation-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.report-generation-container button {
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.light-theme .report-generation-container button {
+  background: #4f8cff !important;
+  color: #fff !important;
+}
+
+body.dark-theme .report-generation-container button {
+  background: #393e46 !important;
+  color: #f5f6fa !important;
+}

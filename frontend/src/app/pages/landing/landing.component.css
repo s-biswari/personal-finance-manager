@@ -1,0 +1,122 @@
+/* Simple, modern landing page styling */
+:host {
+  display: block;
+}
+.landing-container {
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 32px 24px;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 12px;
+  background: var(--background-color, #fff);
+  box-shadow: 0 4px 24px 0 rgba(56,178,172,0.10);
+  text-align: center;
+  color: var(--text-color, #232526);
+  transition: background 0.3s, color 0.3s;
+}
+.landing-container h2 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--heading-color, #232526);
+  transition: color 0.3s;
+}
+.landing-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.landing-actions button {
+  padding: 0.8rem 1.2rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(90deg, var(--button-gradient-start, #4f8cff) 0%, var(--button-gradient-end, #38b2ac) 100%);
+  color: var(--button-text-color, #fff);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.landing-actions button:hover {
+  background: linear-gradient(90deg, var(--button-gradient-end, #38b2ac) 0%, var(--button-gradient-start, #4f8cff) 100%);
+}
+body.dark-theme .landing-container {
+  background: #232526 !important;
+  color: #f5f6fa !important;
+  border-color: #393e46 !important;
+}
+body.dark-theme .landing-container h2 {
+  color: #f5f6fa !important;
+}
+body.dark-theme .landing-actions button {
+  background: linear-gradient(90deg, #232526 0%, #393e46 100%) !important;
+  color: #f5f6fa !important;
+}
+body.dark-theme .landing-actions button:hover {
+  background: linear-gradient(90deg, #393e46 0%, #232526 100%) !important;
+}
+body.light-theme .landing-container {
+  background: #fff !important;
+  color: #232526 !important;
+  border-color: #ddd !important;
+}
+body.light-theme .landing-container h2 {
+  color: #232526 !important;
+}
+body.light-theme .landing-actions button {
+  background: linear-gradient(90deg, #4f8cff 0%, #38b2ac 100%) !important;
+  color: #fff !important;
+}
+body.light-theme .landing-actions button:hover {
+  background: linear-gradient(90deg, #38b2ac 0%, #4f8cff 100%) !important;
+}
+
+/* Theme toggle switch styles */
+.theme-toggle-container {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 1000;
+}
+.theme-switch {
+  display: flex;
+  align-items: center;
+  background: rgba(60,60,60,0.12);
+  border-radius: 2em;
+  padding: 0.3em 1em 0.3em 0.5em;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+}
+.theme-switch input[type="checkbox"] {
+  display: none;
+}
+.slider {
+  width: 2.2em;
+  height: 1.2em;
+  background: #bfc1c8;
+  border-radius: 1em;
+  position: relative;
+  margin-right: 0.7em;
+  transition: background 0.2s;
+}
+.theme-switch input[type="checkbox"]:checked + .slider {
+  background: #232526;
+}
+.slider:before {
+  content: '';
+  position: absolute;
+  left: 0.2em;
+  top: 0.2em;
+  width: 0.8em;
+  height: 0.8em;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.theme-switch input[type="checkbox"]:checked + .slider:before {
+  transform: translateX(1em);
+}
+.theme-label {
+  font-size: 1.1em;
+  color: #bfc1c8;
+  margin-left: 0.3em;
+}

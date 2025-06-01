@@ -1,0 +1,35 @@
+<div class="category-management-container">
+  <button class="back-btn" type="button" (click)="goBack()">← Back</button>
+  <div class="category-card">
+    <h2>Category Management</h2>
+    <form (ngSubmit)="submitCategory()" class="category-form" autocomplete="off">
+      <div class="form-group">
+        <label class="floating-label">Category Name
+          <input [(ngModel)]="categoryForm.name" name="name" required placeholder=" " />
+          <span class="input-icon">🏷️</span>
+        </label>
+      </div>
+      <button class="filter-btn" type="submit" [disabled]="loading">{{ isEdit ? 'Update' : 'Add' }} Category</button>
+      <button *ngIf="isEdit" class="filter-btn" type="button" (click)="cancelEdit()">Cancel</button>
+    </form>
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <div *ngIf="success" class="success">{{ success }}</div>
+    <div *ngIf="loading" class="loading">Saving...</div>
+    <table class="category-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of categories">
+          <td>{{ c.name }}</td>
+          <td>
+            <button class="filter-btn" style="padding:0.2rem 0.7rem;font-size:0.95rem;" (click)="editCategory(c)" title="Edit"><span>✏️</span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

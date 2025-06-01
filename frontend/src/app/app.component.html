@@ -1,1 +1,8 @@
-<router-outlet />
+<div class="theme-toggle-container">
+  <label class="theme-switch">
+    <input type="checkbox" (change)="toggleTheme()" [checked]="isDarkMode" />
+    <span class="slider"></span>
+    <span class="theme-label">{{ isDarkMode ? '🌙 Dark' : '☀️ Light' }}</span>
+  </label>
+</div>
+<router-outlet></router-outlet>
